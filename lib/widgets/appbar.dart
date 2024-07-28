@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:newsreaderapp/controller/themeController.dart';
 import 'package:newsreaderapp/screens/settingspage.dart';
 
-import '../utils/colors.dart';
+import '../constants/colors.dart';
 import 'customtext.dart';
 
 class TopAppBar extends StatelessWidget implements PreferredSizeWidget {

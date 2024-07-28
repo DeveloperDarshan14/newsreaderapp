@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newsreaderapp/controller/themeController.dart';
 
-import '../utils/colors.dart';
+import '../constants/colors.dart';
 import 'customtext.dart';
 class DividerWidget extends StatefulWidget {
   const DividerWidget({Key? key}) : super(key: key);

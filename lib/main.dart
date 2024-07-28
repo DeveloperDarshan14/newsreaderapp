@@ -13,28 +13,23 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    final ThemeController themeController = Get.put(ThemeController());
-    return Obx( ()=>
-        GetMaterialApp(
-        translations: LocalString(),
-        locale: Locale('en','US'),
-            fallbackLocale: Locale('en', 'US'),
-        debugShowCheckedModeBanner: false,
-            theme: themeController.isDark.value
-                ? themeController.darkTheme
-                : themeController.lightTheme,
-        home: SplashScreen()
-      ),
+    final ThemeController themeController = Get.put(ThemeController()); // Initialization of theme controller
+    return Obx(
+      () => GetMaterialApp(
+          translations: LocalString(),
+          locale: Locale('en', 'US'),
+          fallbackLocale: Locale('en', 'US'),
+          debugShowCheckedModeBanner: false,
+          theme: themeController.isDark.value
+              ? themeController.darkTheme
+              : themeController.lightTheme,
+          home: SplashScreen()),
     );
   }
 }
-
-

@@ -36,14 +36,16 @@ class _SettingsPageState extends State<SettingsPage> {
                   ? Icon(Icons.dark_mode)
                   : Icon(Icons.light_mode),
               title: themeController.isDark.value
-                  ? Text("Dark theme".tr,style: TextStyle(
-                  color: themeController.textColor,
-                  fontSize: 16
-              ),)
-                  : Text("Light theme".tr,style: TextStyle(
-                  color: themeController.textColor,
-                  fontSize: 16
-              ),),
+                  ? Text(
+                      "Dark theme".tr,
+                      style: TextStyle(
+                          color: themeController.textColor, fontSize: 16),
+                    )
+                  : Text(
+                      "Light theme".tr,
+                      style: TextStyle(
+                          color: themeController.textColor, fontSize: 16),
+                    ),
               trailing: Switch(
                 value: themeController.isDark.value,
                 onChanged: (value) {
@@ -54,20 +56,24 @@ class _SettingsPageState extends State<SettingsPage> {
             DividerWidget(),
             ListTile(
               leading: Icon(Icons.language),
-              title: Text("Change Language".tr,style: TextStyle(
-                color: themeController.textColor,
-                fontSize: 16
-              ),),
+              title: Text(
+                "Change Language".tr,
+                style:
+                    TextStyle(color: themeController.textColor, fontSize: 16),
+              ),
               trailing: Obx(() {
                 return Padding(
-                  padding: const EdgeInsets.only(right: 10.0), // Add padding from the left
+                  padding: const EdgeInsets.only(
+                      right: 10.0),
                   child: DropdownButton<String>(
                     value: languageController.currentLanguage.value,
                     elevation: 16,
                     style: TextStyle(
-                      color: themeController.isDark.value ? Colors.white : Colors.black,
+                      color: themeController.isDark.value
+                          ? Colors.white
+                          : Colors.black,
                     ),
-                    underline:null,
+                    underline: null,
                     onChanged: (String? newValue) {
                       if (newValue != null) {
                         languageController.changeLanguage(newValue);
@@ -77,17 +83,17 @@ class _SettingsPageState extends State<SettingsPage> {
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
-                        child: Text(value,style: TextStyle(
-                            color: themeController.textColor,
-                            fontSize: 16
-                        ),),
+                        child: Text(
+                          value,
+                          style: TextStyle(
+                              color: themeController.textColor, fontSize: 16),
+                        ),
                       );
                     }).toList(),
                   ),
                 );
               }),
             ),
-
             DividerWidget(),
           ],
         );

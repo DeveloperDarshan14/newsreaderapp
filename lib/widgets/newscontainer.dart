@@ -6,7 +6,7 @@ import 'package:newsreaderapp/controller/newsController.dart';
 import 'package:newsreaderapp/controller/themeController.dart';
 import 'package:newsreaderapp/screens/newsdetailspage.dart';
 
-import '../utils/colors.dart';
+import '../constants/colors.dart';
 import 'bottomsheet.dart';
 import 'components.dart';
 import 'customtext.dart';
@@ -50,15 +50,14 @@ class _NewsContainerState extends State<NewsContainer> {
                       ? AppColors.black
                       : AppColors.lightwhite,
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                  BoxShadow(
-                  offset: Offset(0, 0),
-              blurRadius: 1,
-              spreadRadius: 1,
-              color: Colors.black26,
-            ),
-        ]
-              ),
+                  boxShadow: const [
+                    BoxShadow(
+                      offset: Offset(0, 0),
+                      blurRadius: 1,
+                      spreadRadius: 1,
+                      color: Colors.black26,
+                    ),
+                  ]),
               width: w,
               child: Row(
                 children: [
@@ -84,14 +83,14 @@ class _NewsContainerState extends State<NewsContainer> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomText(
-                            color:themeController.isDark.value
+                            color: themeController.isDark.value
                                 ? AppColors.white
                                 : AppColors.black,
                             size: 16,
                             text: widget.title),
                         SizedBox(height: 5),
                         CustomText(
-                            color:themeController.isDark.value
+                            color: themeController.isDark.value
                                 ? AppColors.white
                                 : AppColors.black,
                             size: 12,

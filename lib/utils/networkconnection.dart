@@ -1,7 +1,3 @@
-
-
-
-
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -10,17 +6,16 @@ import 'package:flutter/services.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:newsreaderapp/constants/colors.dart';
 
 class ControllerBinding extends Bindings {
-
-
   @override
   void dependencies() {
     Get.lazyPut<ConnectionManagerController>(
-            () => ConnectionManagerController());
+        () => ConnectionManagerController());
   }
 }
-
 
 class ConnectionManagerController extends GetxController {
   //0 = No Internet, 1 = WIFI Connected ,2 = Mobile Data Connected.
@@ -63,13 +58,13 @@ class ConnectionManagerController extends GetxController {
         connectionType.value = 0;
         break;
       default:
-       /* Get.snackbar('Error', 'Failed to get connection type',
+        Get.snackbar('Error', 'Failed to get connection type',
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.red.withOpacity(0.10),
-            colorText: Appcolors.apptheme_color,
+            colorText: AppColors.black,
             borderColor: Colors.red,
             borderWidth: 1,
-            margin: EdgeInsets.only(bottom: 20, left: 10.0, right: 10.0));*/
+            margin: EdgeInsets.only(bottom: 20, left: 10.0, right: 10.0));
         break;
     }
   }

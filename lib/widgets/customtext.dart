@@ -4,11 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:newsreaderapp/controller/themeController.dart';
 
 class CustomText extends StatefulWidget {
-
   final String text;
   final double size;
   final Color color;
-   CustomText(
+  CustomText(
       {Key? key, required this.text, required this.size, required this.color})
       : super(key: key);
 
@@ -17,11 +16,11 @@ class CustomText extends StatefulWidget {
 }
 
 class _CustomTextState extends State<CustomText> {
-  ThemeController themeController=Get.put(ThemeController());
+  ThemeController themeController = Get.put(ThemeController());
 
   @override
   Widget build(BuildContext context) {
-     return Text(
+    return Text(
       widget.text,
       style: GoogleFonts.lato(color: widget.color, fontSize: widget.size),
     );
@@ -45,4 +44,3 @@ class boldText extends StatelessWidget {
     );
   }
 }
-

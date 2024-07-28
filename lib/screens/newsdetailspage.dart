@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:newsreaderapp/Model/articlesModel.dart';
 import 'package:newsreaderapp/controller/themeController.dart';
 import 'package:get/get.dart';
-import 'package:newsreaderapp/utils/colors.dart';
+import 'package:newsreaderapp/constants/colors.dart';
 
 class NewsDetailsPage extends StatefulWidget {
   final Article data;
@@ -26,11 +26,11 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
         title: Text(
           'News Details'.tr,
           style: TextStyle(
-              fontSize: 20,
-              color: themeController.isDark.value
-                  ? AppColors.white
-                  : AppColors.black,
-              ),
+            fontSize: 20,
+            color: themeController.isDark.value
+                ? AppColors.white
+                : AppColors.black,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -111,7 +111,9 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10,)
+                    SizedBox(
+                      height: 10,
+                    )
                   ],
                 ),
               ),

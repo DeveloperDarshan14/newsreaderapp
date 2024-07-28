@@ -6,7 +6,7 @@ import 'package:newsreaderapp/widgets/appbar.dart';
 import 'package:overlay_loader_with_app_icon/overlay_loader_with_app_icon.dart';
 import '../constants/constants.dart';
 import '../controller/newsController.dart';
-import '../utils/colors.dart';
+import '../constants/colors.dart';
 import 'package:get/get.dart';
 import '../widgets/newscontainer.dart';
 
@@ -18,12 +18,11 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
-
   NewsController newscontroller = Get.put(NewsController());
   ThemeController themeController = Get.put(ThemeController());
-  LanguageController languageController=Get.put(LanguageController());
+  LanguageController languageController = Get.put(LanguageController());
   ConnectionManagerController connectionManagerController =
-  Get.put(ConnectionManagerController());
+      Get.put(ConnectionManagerController());
 
   @override
   void initState() {
@@ -34,9 +33,8 @@ class _NewsPageState extends State<NewsPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    return  Obx(
-          () =>  OverlayLoaderWithAppIcon(
+    return Obx(
+      () => OverlayLoaderWithAppIcon(
         isLoading: newscontroller.isLoading.value,
         overlayBackgroundColor: Colors.black,
         circularProgressColor: Color(0xff323261),
@@ -44,104 +42,114 @@ class _NewsPageState extends State<NewsPage> {
           padding: EdgeInsets.all(8.0),
           child: Image.asset('assets/images/newslogo.jpg'),
         ),
-        child: Scaffold(
-          backgroundColor: themeController.isDark.value ? AppColors.black : AppColors.white,
-          appBar: TopAppBar(),
-          body: Column(
-            children: [
-              Expanded(
-                child: Obx(
-                      () {
-                    if (connectionManagerController.connectionType
-                        .value ==
-                        0) {
-                      return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/images/no_data_found.gif",
-                              height: 200,
-                              width: 200,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 8.0, right: 8.0),
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Internet connection not found.".tr,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: themeController.isDark.value ? AppColors.white : AppColors.black,
-                                    fontSize: 18,
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await newscontroller.getData();
+          },
+          child: Scaffold(
+            backgroundColor: themeController.isDark.value
+                ? AppColors.black
+                : AppColors.white,
+            appBar: TopAppBar(),
+            body: Column(
+              children: [
+                Expanded(
+                  child: Obx(
+                    () {
+                      if (connectionManagerController.connectionType.value ==
+                          0) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/images/no_data_found.gif",
+                                height: 200,
+                                width: 200,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 8.0, right: 8.0),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Internet connection not found.".tr,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: themeController.isDark.value
+                                          ? AppColors.white
+                                          : AppColors.black,
+                                      fontSize: 18,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      );
-                    } else {
-                      return newscontroller.articlesList.length == 0 &&
-                          !newscontroller.isLoading.value
-                          ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/images/no_data_found.gif",
-                              height: 200,
-                              width: 200,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 8.0, right: 8.0),
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "No data found".tr,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color:  themeController.isDark.value ? AppColors.white : AppColors.black,
-                                    fontSize: 18,
-                                  ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return newscontroller.articlesList.length == 0 &&
+                                !newscontroller.isLoading.value
+                            ? Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/no_data_found.gif",
+                                      height: 200,
+                                      width: 200,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8.0, right: 8.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "No data found".tr,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: themeController.isDark.value
+                                                ? AppColors.white
+                                                : AppColors.black,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                          :ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: newscontroller.articlesList.length,
-                        physics: BouncingScrollPhysics(),
-                        itemBuilder: (BuildContext context, index) {
-                          final article = newscontroller.articlesList[index];
-                          final imageUrl = (article.urlToImage != null && article.urlToImage.isNotEmpty)
-                              ? article.urlToImage
-                              : Constants.imageurl;
-                          return NewsContainer(
-                            url: article.url,
-                            imageurl: imageUrl,
-                            title: article.title,
-                            time: article.publishedAt.toString(),
-                            description: article.description.toString(),
-                            article: article,
-                          );
-                        },
-                      );
-                    }
-                  },
+                              )
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: newscontroller.articlesList.length,
+                                physics: BouncingScrollPhysics(),
+                                itemBuilder: (BuildContext context, index) {
+                                  final article =
+                                      newscontroller.articlesList[index];
+                                  final imageUrl =
+                                      (article.urlToImage != null &&
+                                              article.urlToImage.isNotEmpty)
+                                          ? article.urlToImage
+                                          : Constants.imageurl;
+                                  return NewsContainer(
+                                    url: article.url,
+                                    imageurl: imageUrl,
+                                    title: article.title,
+                                    time: article.publishedAt.toString(),
+                                    description: article.description.toString(),
+                                    article: article,
+                                  );
+                                },
+                              );
+                      }
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-
-
-
